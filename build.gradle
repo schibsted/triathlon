@@ -1,0 +1,104 @@
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'jacoco'
+apply plugin: 'application'
+//apply plugin: 'jsonschema2pojo'
+
+sourceCompatibility = 1.8
+version = '1.0'
+
+mainClassName = "netflix.karyon.KaryonRunner"
+//applicationDefaultJvmArgs = ["-Djava.awt.headless=true", "-Darchaius.deployment.environment=dev", "-Darchaius.deployment.applicationId=Triathlon"]
+
+allprojects {
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+}
+
+jacoco {
+    toolVersion = "0.7.1.201405082137"
+    reportsDir = file("$buildDir/reports/jacoco")
+}
+
+jar {
+    manifest {
+        attributes 'Implementation-Title': 'Eureka Registration Client', 'Implementation-Version': version
+        attributes 'Main-Class': 'com.netflix.karyon.KaryonRunner'
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        // this plugin
+        classpath 'org.jsonschema2pojo:jsonschema2pojo-gradle-plugin:0.4.13'
+        // add additional dependencies here if you wish to reference instead of generate them (see example directory)
+    }
+}
+
+dependencies {
+    compile 'io.reactivex:rxjava:1.0.12'
+    compile 'io.reactivex:rxjava-string:0.22.0'
+    compile 'com.google.inject:guice:3.0'
+    compile group: 'commons-collections', name: 'commons-collections', version: '3.2'
+    compile 'com.netflix.karyon:karyon2-archaius:2.7.1'
+    compile 'com.netflix.karyon:karyon2-admin-web:2.7.1'
+    compile 'com.netflix.blitz4j:blitz4j:1.36.0'
+    compile 'com.netflix.eureka:eureka2-client:2.0.0-rc.2'
+    compile 'org.slf4j:slf4j-api:1.7.0'
+    compile 'com.netflix.hystrix:hystrix-core:1.4.13'
+    compile 'com.fasterxml.jackson.core:jackson-annotations:2.6.1'
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.6.1'
+
+
+
+    runtime 'org.slf4j:slf4j-simple:1.7.0'
+
+    testCompile "org.mockito:mockito-all:1.9.5"
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+
+
+    // Required if generating equals, hashCode, or toString methods
+    compile 'commons-lang:commons-lang:2.6'
+    // Required if generating JSR-303 annotations
+    compile 'javax.validation:validation-api:1.1.0.CR2'
+    // Required if generating Jackson 2 annotations
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.6.1'
+    // Required if generating JodaTime data types
+    compile 'joda-time:joda-time:2.2'
+}
+
+task runApp (dependsOn: [classes], type: JavaExec) {
+
+    group = "Triathlon"
+    description = "Registration Client for Eureka2."
+
+    main = mainClassName
+    classpath = sourceSets.main.runtimeClasspath
+    def deployEnvironment = 'dev'
+    systemProperty 'java.awt.headless', 'true'
+    systemProperty 'archaius.deployment.environment', deployEnvironment
+    systemProperty 'archaius.deployment.applicationId', 'Triathlon'
+
+    args = ["com.schibsted.triathlon.main.TriathlonServer"]
+}
+
+/*
+jsonSchema2Pojo {
+    source = files("${project.rootDir}/src/main/json/marathon")
+    targetDirectory = file("${project.rootDir}/src/main/java")
+    targetPackage = "com.schibsted.triathlon.model.generated"
+    sourceType = 'json'
+}
+*/
+
+task killGradleInstances(type: Exec) {
+    commandLine './killGradle.sh'
+}

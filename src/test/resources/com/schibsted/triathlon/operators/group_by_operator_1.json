@@ -1,0 +1,15 @@
+{
+	"container": {
+		"type": "DOCKER",
+		"docker": {
+			"image": "mesosprototype-docker-registry.infra-dev.schibsted.io:5000/triathlon:v0.0.7"
+		}
+	},
+	"id": "triathlon",
+	"instances": 2,
+	"ports": [8077, 8080],
+	"requirePorts": true,
+	"cpus": 0.5,
+    "constraints": [["datacenter", "GROUP_BY"]],
+	"mem": 512
+}

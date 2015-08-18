@@ -1,0 +1,18 @@
+{
+	"container": {
+		"type": "DOCKER",
+		"docker": {
+			"image": "mesosprototype-docker-registry.infra-dev.schibsted.io:5000/triathlon:v0.0.11"
+		}
+	},
+    "env": {
+        "archaius.deployment.environment": "pro"
+        "
+    },
+	"id": "triathlon",
+	"instances": 1,
+	"ports": [8077, 9090],
+	"requirePorts": true,
+	"cpus": 0.5,
+	"mem": 512
+}

@@ -1,0 +1,15 @@
+{
+	"container": {
+		"type": "DOCKER",
+		"docker": {
+			"image": "mesosprototype-docker-registry.infra-dev.schibsted.io:5000/gotquotes:5"
+		}
+	},
+	"id": "gotquotes",
+	"instances": 2,
+	"ports": [8077, 9090],
+	"requirePorts": true,
+	"cpus": 0.5,
+	"constraints": [["datacenter", "CLUSTER", "gce"]],
+	"mem": 512
+}
