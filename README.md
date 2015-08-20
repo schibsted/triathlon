@@ -1,4 +1,4 @@
-[![Build Status](https://travis.schibsted.io/spt-infrastructure/triathlon.svg?token=zyJNyfy6QrXmmKaFXRiZ&branch=master)](https://travis.schibsted.io/spt-infrastructure/triathlon)
+[![Build Status](https://travis-ci.org/schibsted/triathlon.svg)](https://travis-ci.org/schibsted/triathlon)
 # Triathlon
 
 ## A Marathon wrapper for distributed Mesos cluster selection
