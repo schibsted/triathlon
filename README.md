@@ -9,6 +9,49 @@ Using the endpoint `/v2/apps` you can send via `POST` an [App definition JSON](h
 
 Triathlon then will look for a field `constraints` in the document with the parameter `datacenter`. If it is found will look for a marathon running in a datacenter with the same name and will forward the JSON document to it. Finally will return the response from marathon.
 
+### Implemented constraints operator
+
+We had wrapped the following constraints operators: (see the [Marathon documentation](https://github.com/mesosphere/marathon/blob/master/docs/docs/constraints.md) for more info)
+
+#### UNIQUE operator
+
+With the `UNIQUE` operator we ensure that we only deploy one instance of our application on each datacenter. For example the following command only will deploy 3 instances if we have almost 3 datacenters.
+
+```
+$ curl -X POST -H "Content-type: application/json" localhost:9090/v2/apps -d '{
+    "container": { ... }
+    "id": "my-app",
+    "instances": 3,
+    "constraints": [["datacenter", "UNIQUE"]]
+}'
+```
+
+#### CLUSTER operator
+
+Using the `CLUSTER` operator we can deploy all our instances to the same datacenter. The following example will deploy all 3 instances on the datacenter `pluto-dc`:
+
+```
+$ curl -X POST -H "Content-type: application/json" localhost:9090/v2/apps -d '{
+    "container": { ... }
+    "id": "my-app",
+    "instances": 3,
+    "constraints": [["datacenter", "CLUSTER", "pluto-dc"]]
+}'
+```
+
+#### GROUP_BY operator
+
+The `GROUP_BY` operator can be used to distribute applications evenly across all our datacenters. The following example will deploy 2 instances on each datacenter assuming that we have two datacenters:
+
+```
+$ curl -X POST -H "Content-type: application/json" localhost:9090/v2/apps -d '{
+    "container": { ... }
+    "id": "my-app",
+    "instances": 4,
+    "constraints": [["datacenter", "GROUP_BY"]]
+}'
+```
+
 ## Deploy to Marathon
 
 ```
