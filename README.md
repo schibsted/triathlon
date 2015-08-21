@@ -63,7 +63,7 @@ curl -X POST -H "Content-Type: application/json" http://${MARATHON}/v2/apps -d@m
 
 ### Docker registry certificate
 
-We need to copy the certificate (`ca.crt`) into `/etc/docker/certs.d/mesosprototype-docker-registry.infra-dev.schibsted.io\:5000`
+We need to copy the certificate (`ca.crt`) into `/etc/docker/certs.d/docker-registry-hostname`
 
 ### Deploy from OSX
 

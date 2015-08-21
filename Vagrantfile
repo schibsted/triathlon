@@ -18,10 +18,8 @@ usermod -a -G docker vagrant
 
 sudo apt-get install -y openjdk-8-jdk
 
-mkdir -p /etc/docker/certs.d/mesosprototype-docker-registry.infra-dev.schibsted.io\:5000
-sudo cp /vagrant/misc/ca.crt /etc/docker/certs.d/mesosprototype-docker-registry.infra-dev.schibsted.io\:5000
-
-echo "54.154.201.114 mesosprototype-docker-registry.infra-dev.schibsted.io" >> /etc/hosts
+mkdir -p /etc/docker/certs.d/docker-registry-hostname
+sudo cp /vagrant/misc/ca.crt /etc/docker/certs.d/docker-registry-hostname
 
 SCRIPT
 

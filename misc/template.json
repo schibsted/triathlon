@@ -2,7 +2,7 @@
 	"container": {
 		"type": "DOCKER",
 		"docker": {
-			"image": "mesosprototype-docker-registry.infra-dev.schibsted.io:5000/triathlon:VERSION"
+			"image": "docker-registry-hostname/triathlon:VERSION"
 		}
 	},
 	"id": "triathlon",

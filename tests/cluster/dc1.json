@@ -2,7 +2,7 @@
 	"container": {
 		"type": "DOCKER",
 		"docker": {
-			"image": "mesosprototype-docker-registry.infra-dev.schibsted.io:5000/gotquotes:5"
+			"image": "docker-registry-hostname/gotquotes:5"
 		}
 	},
 	"id": "gotquotes",

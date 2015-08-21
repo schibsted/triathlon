@@ -10,11 +10,11 @@ curl -X DELETE -H "Content-Type: application/json" http://${MARATHON}:8080/v2/ap
 
 sleep 3
 
-VERSION=$(docker images mesosprototype-docker-registry.infra-dev.schibsted.io:5000/triathlon | awk '{print $2}' | grep -v TAG | sort -n | tail -1)
+VERSION=$(docker images docker-registry-hostname/triathlon | awk '{print $2}' | grep -v TAG | sort -n | tail -1)
 VERSION=$(($VERSION+1))
 
-docker build -t mesosprototype-docker-registry.infra-dev.schibsted.io:5000/triathlon:${VERSION} .
-docker push mesosprototype-docker-registry.infra-dev.schibsted.io:5000/triathlon:${VERSION}
+docker build -t docker-registry-hostname/triathlon:${VERSION} .
+docker push docker-registry-hostname/triathlon:${VERSION}
 
 cat misc/template.json | sed "s/VERSION/$VERSION/" > run.json
 
